@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<requestService>
+	<requestHeader>
+		<tranCode>12345</tranCode>
+		<tranDate>1876.09.07</tranDate>
+		<tranTime>13:12</tranTime>
+	</requestHeader>
+	<body />
+</requestService>
