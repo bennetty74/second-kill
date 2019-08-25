@@ -1,11 +1,11 @@
 package assignment.bigtask.service;
 
 import assignment.bigtask.Constants;
-import assignment.bigtask.dao.StockDao;
-import assignment.bigtask.xml.request.RequestService;
-import assignment.bigtask.xml.response.ResponseService;
+import assignment.bigtask.xml.request.Request;
+import assignment.bigtask.xml.response.Response;
+import assignment.bigtask.xml.response.ResponseUtil;
 
-public class ServiceDispatcher{
+public class ServiceDispatcher {
 
 	private static ServiceDispatcher serviceDispatcher;
 
@@ -29,16 +29,13 @@ public class ServiceDispatcher{
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
-	public ResponseService dispatch(RequestService requestService) throws Exception {
-		String tranCode=requestService.getRequestHeader().getTranCode();
-		//buy
-		if(Constants.BUY_CODE.equals(tranCode)) {
-			return new StockService(new StockDao()).buyGoods(requestService);
-		}else if(Constants.QUERY_CODE.equals(tranCode)) {
-			return new StockService(new StockDao()).queryStocks(requestService);
+	public Response<?> dispatch(Request<?> request) throws Exception {
+		if(Constants.BUY_CODE.equals(request.getTranCode())) {
+			return new StockService().buyGoods(request);
+		}else if(Constants.QUERY_CODE.equals(request.getTranCode())) {
+			return new StockService().queryStocks(request);
 		}
-		return new ResponseService();
+		return ResponseUtil.failture();
 	}
 
 }

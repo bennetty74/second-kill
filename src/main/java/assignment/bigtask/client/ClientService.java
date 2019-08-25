@@ -8,10 +8,8 @@ import assignment.bigtask.Constants;
 import assignment.bigtask.entity.Order;
 import assignment.bigtask.entity.Stock;
 import assignment.bigtask.utils.FormatterUtils;
-import assignment.bigtask.xml.request.BuyRequestBody;
-import assignment.bigtask.xml.request.RequestBody;
-import assignment.bigtask.xml.request.RequestHeader;
-import assignment.bigtask.xml.request.RequestService;
+import assignment.bigtask.xml.request.Request;
+import assignment.bigtask.xml.request.RequestUtil;
 
 public class ClientService {
 
@@ -21,56 +19,31 @@ public class ClientService {
 		this.userName = userName;
 	}
 
-	public RequestService queryRequest() {
-		RequestService requestService = new RequestService();
-		RequestHeader requestHeader = new RequestHeader();
-
-		requestHeader.setTranCode(Constants.QUERY_CODE);
-		requestHeader.setTranDate(FormatterUtils.dateFormat(new Date()));
-		requestHeader.setTranTime(FormatterUtils.timeFormat(new Date()));
-		requestService.setRequestBody(new RequestBody());
-		requestService.setRequestHeader(requestHeader);
-		return requestService;
+	public Request<?> queryRequest() {
+		return RequestUtil.request(Constants.QUERY_CODE);
 	}
 
-	public RequestService randomBuyRequest(List<Stock> stocks) {
+	public Request<?> randomBuyRequest(List<Stock> stocks) {
 		// select goods random
 		int buyIndex = (int) (Math.random() * stocks.size());
 		// generate order
-		Order order = generateOrder(stocks.get(buyIndex).getGoodsCode());
+		Order order = generateOrder(stocks.get(buyIndex));
+		
 		// set request service
-		RequestService requestService = new RequestService();
-		// set request header
-		RequestHeader requestHeader = new RequestHeader();
-		requestHeader.setTranCode(Constants.BUY_CODE);
-		requestHeader.setTranDate(FormatterUtils.dateFormat(new Date()));
-		requestHeader.setTranTime(FormatterUtils.timeFormat(new Date()));
-		requestService.setRequestHeader(requestHeader);
-
-		// set request body
-		RequestBody requestBody = new RequestBody();
-		((BuyRequestBody) requestBody).setQty(order.getGoodsCount());
-		((BuyRequestBody) requestBody).setOrderUser(order.getOrderUser());
-		((BuyRequestBody) requestBody).setGoodsCode(order.getGoodsCode());
-		requestService.setRequestBody(requestBody);
-
-		return requestService;
+		return RequestUtil.request(order, Constants.BUY_CODE);
 	}
 
-	private Order generateOrder(String goodsCode) {
+	private Order generateOrder(Stock stock) {
 		Order order = new Order();
 
 		UUID uuid = UUID.randomUUID();
 		String orderID = uuid.toString().replace("-", "");
 
+		order.setStock(stock);
 		order.setOrderId(orderID);
-
 		order.setOrderUser(userName);
 		order.setOrderDate(FormatterUtils.dateFormat(new Date()));
-		order.setGoodsCode(goodsCode);
-		order.setGoodsCount(Constants.DEFAULT_BUY_SIZE);
 		order.setOrderTime(FormatterUtils.timeFormat(new Date()));
-
 		return order;
 	}
 

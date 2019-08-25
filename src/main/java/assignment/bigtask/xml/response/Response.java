@@ -1,17 +1,26 @@
 package assignment.bigtask.xml.response;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlRootElement(name = "responseService")
+import assignment.bigtask.entity.Stock;
+
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class QueryResponseService extends ResponseService{
+@XmlSeeAlso({ArrayList.class,QueryResB.class,Stock.class})
+public class Response<T> {
+	
 	@XmlElement(name = "responseHeader")
 	private ResponseHeader responseHeader;
-	@XmlElement(name = "body")
-	private QueryResponseBody body;
+	
+	@XmlAnyElement(lax = true)
+	private T body;
 
 	public ResponseHeader getResponseHeader() {
 		return responseHeader;
@@ -21,17 +30,19 @@ public class QueryResponseService extends ResponseService{
 		this.responseHeader = responseHeader;
 	}
 
-	public QueryResponseBody getBody() {
+	public T getBody() {
 		return body;
 	}
 
-	public void setBody(QueryResponseBody body) {
+	public void setBody(T body) {
 		this.body = body;
 	}
 
 	@Override
 	public String toString() {
-		return "ResponseService [responseHeader=" + responseHeader + ", body=" + body + "]";
+		return "Response [responseHeader=" + responseHeader + ", body=" + body + "]";
 	}
+	
+	
 
 }

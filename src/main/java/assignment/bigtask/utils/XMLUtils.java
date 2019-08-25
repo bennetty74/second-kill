@@ -4,15 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class XMLUtils {
 
@@ -25,7 +22,7 @@ public class XMLUtils {
 	/**
 	 * log
 	 */
-	private static Logger logger = LoggerFactory.getLogger(XMLUtils.class);
+//	private static Logger logger = LoggerFactory.getLogger(XMLUtils.class);
 
 	/**
 	 * parse object to xml in xmlString
@@ -43,6 +40,16 @@ public class XMLUtils {
 
 		return new String(byteArrayOutputStream.toByteArray());
 	}
+
+//	public static String transformToXML(Class<?> clazz) throws JAXBException {
+//		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//		jaxbContext = JAXBContext.newInstance(clazz);
+//		marshaller = jaxbContext.createMarshaller();
+//		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//		marshaller.marshal(o, byteArrayOutputStream);
+//
+//		return new String(byteArrayOutputStream.toByteArray());
+//	}
 
 	/**
 	 * parse object to xml in file
@@ -71,7 +78,6 @@ public class XMLUtils {
 		unmarshaller = jaxbContext.createUnmarshaller();
 		InputStream inputStream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
 		o = unmarshaller.unmarshal(inputStream);
-		logger.info("XML to Object is {}", o);
 		return o;
 	}
 
@@ -87,7 +93,6 @@ public class XMLUtils {
 		jaxbContext = JAXBContext.newInstance(o.getClass());
 		unmarshaller = jaxbContext.createUnmarshaller();
 		o = unmarshaller.unmarshal(file);
-		logger.info("XML to Object is {}", o);
 		return o;
 	}
 

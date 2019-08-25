@@ -5,14 +5,11 @@ public class Order {
 	 * 订单号
 	 */
 	private String orderId;
+
 	/**
-	 * 商品编号
+	 * 商品库存
 	 */
-	private String goodsCode;
-	/**
-	 * 商品数量
-	 */
-	private Integer goodsCount;
+	private Stock stock;
 	/**
 	 * 订单日期
 	 */
@@ -25,46 +22,51 @@ public class Order {
 	 * 下单用户
 	 */
 	private String orderUser;
+
 	public String getOrderId() {
 		return orderId;
 	}
+
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	public String getGoodsCode() {
-		return goodsCode;
+
+	public Stock getStock() {
+		return stock;
 	}
-	public void setGoodsCode(String goodsCode) {
-		this.goodsCode = goodsCode;
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
-	public Integer getGoodsCount() {
-		return goodsCount;
-	}
-	public void setGoodsCount(Integer goodsCount) {
-		this.goodsCount = goodsCount;
-	}
+
 	public String getOrderDate() {
 		return orderDate;
 	}
+
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
+
 	public String getOrderTime() {
 		return orderTime;
 	}
+
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
+
 	public String getOrderUser() {
 		return orderUser;
 	}
+
 	public void setOrderUser(String orderUser) {
 		this.orderUser = orderUser;
 	}
+
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", goodsCode=" + goodsCode + ", goodsCount=" + goodsCount + ", orderDate="
-				+ orderDate + ", orderTime=" + orderTime + ", orderUser=" + orderUser + "]";
+		return "Order [orderId=" + orderId + ", stock=" + stock + ", orderDate=" + orderDate + ", orderTime="
+				+ orderTime + ", orderUser=" + orderUser + "]";
 	}
 
 }

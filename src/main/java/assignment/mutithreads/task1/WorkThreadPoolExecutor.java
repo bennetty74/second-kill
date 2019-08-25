@@ -7,12 +7,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class WorkThreadPoolExecutor extends ThreadPoolExecutor{
 	
-	private Logger logger = LoggerFactory.getLogger(WorkThreadPoolExecutor.class);
+//	private Logger logger = LoggerFactory.getLogger(WorkThreadPoolExecutor.class);
 	
 	/**
 	 * 核心线程池大小

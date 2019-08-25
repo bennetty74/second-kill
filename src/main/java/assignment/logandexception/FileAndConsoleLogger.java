@@ -3,10 +3,8 @@ package assignment.logandexception;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,7 +22,6 @@ public class FileAndConsoleLogger implements ILog {
 	
 	private PrintStream printStream;
 	
-	private Writer writer;
 
 	private final static String DEFAULT_LOG_FILE_PATH = "E:/log.txt";
 
