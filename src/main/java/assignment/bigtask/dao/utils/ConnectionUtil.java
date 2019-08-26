@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Tool class
  * Used to create and close database connection
- * @author Bennetty74
- *
  */
 public class ConnectionUtil {
 
@@ -17,7 +15,7 @@ public class ConnectionUtil {
 
 	private static String password = "lian19961128";
 
-	private static String url = "jdbc:mysql://144.202.121.88:3306/spdb";
+	private static String url = "jdbc:mysql://144.202.121.88:3306/spdb?verifyServerCertificate=false&useSSL=false";
 
 	private static Logger logger = LoggerFactory.getLogger(ConnectionUtil.class);
 

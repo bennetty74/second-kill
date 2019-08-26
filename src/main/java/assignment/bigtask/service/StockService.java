@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import assignment.bigtask.dao.StockDao;
+import assignment.bigtask.dao.StockDaoM;
 import assignment.bigtask.entity.Order;
 import assignment.bigtask.entity.Stock;
 import assignment.bigtask.xml.request.Request;
@@ -25,8 +26,8 @@ public class StockService {
 
 	private static Logger logger = LoggerFactory.getLogger(StockService.class);
 
-	public StockService() {
-		this.stockDao = new StockDao();
+	public StockService() throws Exception {
+		this.stockDao = new StockDaoM();
 	}
 
 	public StockService(StockDao stockDao) {
@@ -46,11 +47,11 @@ public class StockService {
 
 		try {
 			List<Stock> stocks = stockDao.queryStocks();
-			
+
 			QueryResB resB = new QueryResB();
 			resB.setNums(stocks.size());
 			resB.setStocks(stocks);
-			
+
 			return ResponseUtil.success(resB, tranCode);
 
 		} catch (Exception e) {

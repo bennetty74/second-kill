@@ -27,8 +27,6 @@ import assignment.bigtask.xml.response.Response;
 
 /**
  * NIO client send request to server
- * 
- * @author Bennetty74
  *
  */
 public class NIOClient implements Runnable {
@@ -94,7 +92,7 @@ public class NIOClient implements Runnable {
 					if (selectionKey.isReadable()) {
 						readHandler(selectionKey, selector);
 					}
-					Thread.sleep(1000);
+//					Thread.sleep(1000);
 
 				}
 
@@ -169,11 +167,10 @@ public class NIOClient implements Runnable {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		ExecutorService executor = new ThreadPoolExecutor(2, 2, 0, TimeUnit.SECONDS,
+		ExecutorService executor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>());
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 200; i++) {
 			executor.submit(new NIOClient("User-" + i));
-//			Thread.sleep(2000);
 		}
 	}
 

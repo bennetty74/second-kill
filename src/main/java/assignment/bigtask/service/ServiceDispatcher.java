@@ -9,14 +9,21 @@ public class ServiceDispatcher {
 
 	private static ServiceDispatcher serviceDispatcher;
 
+	private StockService stockService;
+
+	private ServiceDispatcher(StockService stockService) {
+		this.stockService = stockService;
+	}
+
 	/**
 	 * Get Single instance of This class
 	 * 
 	 * @return
+	 * @throws Exception
 	 */
-	public static synchronized ServiceDispatcher getInstance() {
+	public static synchronized ServiceDispatcher getInstance() throws Exception {
 		if (serviceDispatcher == null) {
-			return new ServiceDispatcher();
+			serviceDispatcher = new ServiceDispatcher(new StockService());
 		}
 		return serviceDispatcher;
 	}
@@ -30,10 +37,10 @@ public class ServiceDispatcher {
 	 * @throws Exception
 	 */
 	public Response<?> dispatch(Request<?> request) throws Exception {
-		if(Constants.BUY_CODE.equals(request.getTranCode())) {
-			return new StockService().buyGoods(request);
-		}else if(Constants.QUERY_CODE.equals(request.getTranCode())) {
-			return new StockService().queryStocks(request);
+		if (Constants.BUY_CODE.equals(request.getTranCode())) {
+			return stockService.buyGoods(request);
+		} else if (Constants.QUERY_CODE.equals(request.getTranCode())) {
+			return stockService.queryStocks(request);
 		}
 		return ResponseUtil.failture();
 	}
